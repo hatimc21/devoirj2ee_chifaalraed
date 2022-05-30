@@ -1,0 +1,74 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<head>
+	<title>Admin Tickets</title>
+
+</head>
+
+
+<header id="header" class="navbar navbar-light">
+	<div class="container d-flex align-items-center justify-content-between">
+
+		<h1 >Manage Tickets </h1>
+
+		<nav id="navbar" class="navbar">
+			<ul>
+
+				<div sec:authorize="hasAnyAuthority('ADMIN')">
+					<a class="btn btn-outline-primary" th:href="@{/select}">Assign</a>
+				</div>
+				<div sec:authorize="hasAnyAuthority('ADMIN')">
+					<a class="btn btn-outline-primary" th:href="@{/listeAdmin}">Tickets List</a>
+				</div>
+
+
+				
+					<form th:action="@{/logout}" method="post"><input type="submit" class="btn btn-danger" value="Logout"></form>
+			
+			</ul>
+			<i class="bi bi-list mobile-nav-toggle"></i>
+		</nav>
+
+	</div>
+</header>
+
+<body>
+	<h2 class="my-2" style="text-align: center;">non assaignd tickets</h2>
+	
+
+
+	
+	
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Statut</th>
+				<th>Urgence Type</th>
+				<th>Desc</th>
+				<th>Envi</th>
+				<th>Assign</th>
+
+			</tr>
+		</thead>
+		<tbody>
+
+			<tr th:each="p:${tickets}">
+				<th th:text="${p.id_t}">1d</th>
+				<td th:text="${p.statut}">Statut</td>
+				<td th:text="${p.typeUrgence}">Urgence type</td>
+				<td th:text="${p.description}">Desc</td>
+				<td th:text="${p.environnement}">env</td>
+				<td th:text="${p.attribue}">assign</td>
+				
+
+			</tr>
+		</tbody>
+		</table>
+</body>
+
+</html>
